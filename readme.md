@@ -1,6 +1,6 @@
 
 
-```markdown
+```
 # Projects Developed in Python
 
 This repository contains a collection of Python projects, including tools like a CSV to JSON converter and other utilities.
