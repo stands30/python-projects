@@ -1,6 +1,4 @@
-Here is the updated `README.md` file incorporating your provided title, description, and installation instructions, along with the repository URL:
 
-### README.md
 
 ```markdown
 # Projects Developed in Python
