@@ -5,8 +5,9 @@ import re
 from slugify import slugify
 
 # File paths
-excel_file = './Documents/State Index.xlsx'
-output_file = './Documents/State Index.json'
+# excel_file = './Documents/state_data.xlsx'
+excel_file = "C:/python/py_projects/Documents/US_STATES_01.xlsx"
+output_file = 'Documents/State Index.json'
 
 def fill_order_values(df, order_column):
     """ Fills missing order values by continuing the sequence from the previous number """
@@ -51,7 +52,8 @@ def convert_excel_to_json(state_df, related_dfs):
                         if col == 'PostalCodeName':
                             related_obj[col] = str(int(related_row[col])) if pd.notna(related_row[col]) else ""
                         elif col == 'Slug':
-                            slug_value = str(related_row[col]).rstrip('.0') if pd.notna(related_row[col]) else ""
+                            # slug_value = str(related_row[col]).rstrip('.0') if pd.notna(related_row[col]) else ""
+                            slug_value = str(related_row[col]) if pd.notna(related_row[col]) else ""
                             if not is_seo_friendly(slug_value):
                                 # Find the column with 'Name' in its title and generate a slug from it
                                 name_column = next((c for c in df.columns if 'Name' in c), None)
