@@ -1,0 +1,228 @@
+{
+    "summary": {
+        "total_sitemaps_passed": 1,
+        "total_sitemaps_failed": 0,
+        "total_urls_passed": 53,
+        "total_urls_failed": 0
+    },
+    "visited_sitemaps": [
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/index.xml.gz",
+            "status": "passed"
+        }
+    ],
+    "visited_urls": [
+        {
+            "url": "https://www.houzeo.com/homes-for-sale",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/FL/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/TX/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/CA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/MI/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/IL/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/MO/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/MD/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/LA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/OK/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/OR/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/UT/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/NV/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/ID/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/MS/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/NM/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/KS/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/NH/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/VT/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/DC/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/SD/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/ND/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/NC/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/NY/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/AZ/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/PA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/NJ/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/SC/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/TN/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/OH/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/GA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/VA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/WA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/WI/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/CO/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/IN/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/AL/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/AR/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/MN/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/KY/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/MA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/CT/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/HI/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/IA/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/MT/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/DE/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/NE/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/ME/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/WV/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/RI/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/AK/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/WY/index.xml.gz",
+            "status": "passed"
+        },
+        {
+            "url": "https://www.houzeo.com/sitemap-hfs/Features-Amenities.xml.gz",
+            "status": "passed"
+        }
+    ]
+}
