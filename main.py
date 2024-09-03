@@ -3,8 +3,13 @@ from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import ConnectionError
 import csv
 from tqdm import tqdm
+import logging
+import json
 
 app = FastAPI()
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 # Elasticsearch connection setup
 ELASTICSEARCH_HOST = "https://localhost:9204"
@@ -52,6 +57,7 @@ async def gen_url():
             #         }
             #     }
             # },
+            size=100
             # size=1
         )
         custom_links = es.search(
@@ -64,24 +70,29 @@ async def gen_url():
                 #     }
                 # },
                 size=250
+                # size=1
         )
         custom_links_data = custom_links["hits"]["hits"]
         # print(response['hits'])
         json_data = []
         csv_data = []
         for data in tqdm(response['hits']['hits'], desc="Processing Elasticsearch Data"):
-            print(f'data ', data['_source'])
+            # print(f'data ', data['_source'])
             state_slug = f"https://houzeo.com/homes-for-sale/{data['_source']['Slug']}"
             state_data =  {}
             state_data['state_slug'] = state_slug
-            
+            logging.info(f"Processing state: {data['_source']['Slug']}")
             # csv data
             csv_data.append(state_slug)
 
             clinks = generate_links_from_elasticsearch_data(custom_links_data,'https://houzeo.com/homes-for-sale')
             state_data['custom_links'] = clinks
-            csv_data.extend(clinks)
+            csv_data.extend(clinks)   
+            logging.info(f"Generated {len(clinks)} custom links for {data['_source']['Slug']}")
 
+
+            # Adding city, county, and postal code data with a progress bar for each
+            logging.info(f"Processing cities, counties, and postal codes for {data['_source']['Slug']}")
             for city in data['_source']['City']:
                 city_slug = f"{state_slug}/{city['Slug']}"
                 state_data['city_slug'] = city_slug
@@ -108,10 +119,11 @@ async def gen_url():
                 csv_data.extend(postalCode_clinks)
 
             json_data.append(state_data)
-
+            logging.info(f"Finished processing state: {data['_source']['Slug']}")
 
 
         store_to_csv(csv_data)
+        store_to_json(json_data)
         return csv_data
         # return response['hits']
     except Exception as e:
@@ -129,14 +141,15 @@ def generate_links_from_elasticsearch_data(custom_links, link):
 
         # Generate the full URL using the 'Url' field
         clink = f"{link}/{data['Url']}"
-        print(f" URL : ", data['Url']," data ", data)
+        # print(f" URL : ", data['Url']," data ", data)
         clink_data.append(clink)
     
     return clink_data
 
-def store_to_csv(json_data):
-    csv_filename = "output.csv"
+def store_to_csv(csv_data):
+    csv_filename = "clinks.csv"
 
+    logging.info(f"Writing data to {csv_filename}")
     # Write the data to a CSV file
     with open(csv_filename, mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -147,6 +160,13 @@ def store_to_csv(json_data):
 
     print(f"Data successfully written to {csv_filename}")
 
+def store_to_json(json_data):
+    json_filename = 'clinks.json'
+    logging.info(f"Writing data to {json_filename}")
+    with open(json_filename, mode='w') as file:
+        for item in tqdm(json_data, desc="Writing to JSON"):
+            json.dump(item, file)
+            file.write("\n") 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
