@@ -50,13 +50,13 @@ async def gen_url():
     try:
         response = es.search(
             index='us_states',
-            # body={
-            #     "query": {
-            #         "match": {
-            #             "content": query  # Assuming the field you're searching is 'content'
-            #         }
-            #     }
-            # },
+            body={
+                "query": {
+                    "match": {
+                        "Slug": "florida"  # Assuming the field you're searching is 'content'
+                    }
+                }
+            },
             size=100
             # size=1
         )
@@ -76,6 +76,9 @@ async def gen_url():
         # print(response['hits'])
         json_data = []
         csv_data = []
+        clinks = generate_links_from_elasticsearch_data(custom_links_data,'https://houzeo.com/homes-for-sale')
+        csv_data.extend(clinks)   
+        json_data.append(clinks)
         for data in tqdm(response['hits']['hits'], desc="Processing Elasticsearch Data"):
             # print(f'data ', data['_source'])
             state_slug = f"https://houzeo.com/homes-for-sale/{data['_source']['Slug']}"
@@ -85,9 +88,9 @@ async def gen_url():
             # csv data
             csv_data.append(state_slug)
 
-            clinks = generate_links_from_elasticsearch_data(custom_links_data,'https://houzeo.com/homes-for-sale')
+            state_clinks = generate_links_from_elasticsearch_data(custom_links_data,state_slug)
             state_data['custom_links'] = clinks
-            csv_data.extend(clinks)   
+            csv_data.extend(state_clinks)   
             logging.info(f"Generated {len(clinks)} custom links for {data['_source']['Slug']}")
 
 
@@ -99,6 +102,7 @@ async def gen_url():
                 
                 city_clinks = generate_links_from_elasticsearch_data(custom_links_data, city_slug)
                 state_data['city_custom_links'] = city_clinks
+                csv_data.append(city_slug)
                 csv_data.extend(city_clinks)
 
             for county in data['_source']['County']:
@@ -108,7 +112,8 @@ async def gen_url():
                 
                 county_clinks = generate_links_from_elasticsearch_data(custom_links_data, county_slug)
                 state_data['county_custom_links'] = county_clinks
-                csv_data.extend(city_clinks)
+                csv_data.append(county_slug)
+                csv_data.extend(county_clinks)
 
             for postalCode in data['_source']['PostalCode']:
                 postalCode_slug = f"{state_slug}/{postalCode['Slug']}"
@@ -116,6 +121,7 @@ async def gen_url():
                 
                 postalCode_clinks = generate_links_from_elasticsearch_data(custom_links_data, postalCode_slug)
                 state_data['postalCode_custom_links'] = postalCode_clinks
+                csv_data.append(postalCode_slug)
                 csv_data.extend(postalCode_clinks)
 
             json_data.append(state_data)

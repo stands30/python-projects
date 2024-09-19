@@ -6,14 +6,14 @@ from slugify import slugify
 
 # File paths
 # excel_file = './Documents/state_data.xlsx'
-excel_file = "C:/python/py_projects/Documents/US_STATES_01.xlsx"
-output_file = 'Documents/State Index.json'
+excel_file = "C:/python/py_projects/Documents/US_STATES_6.xlsx"
+output_file = 'Documents/State_Index_2.json'
 
 def fill_order_values(df, order_column):
     """ Fills missing order values by continuing the sequence from the previous number """
     last_order = 0
     for i, row in df.iterrows():
-        if pd.isna(row[order_column]):
+        if pd.isna(row[order_column]) or pd.notna(row[order_column]):
             last_order += 1
             df.at[i, order_column] = last_order
         else:
@@ -44,28 +44,50 @@ def convert_excel_to_json(state_df, related_dfs):
             for tab_name, df in related_dfs.items():
                 state_obj[tab_name] = []
                 state_related = df[df[df.columns[0]] == state_row[state_df.columns[0]]]
-                state_related = fill_order_values(state_related, 'Order')
+                try:
+                    state_related = fill_order_values(state_related, 'Order')
+                except Exception as e:
+                    print(f" Error occurred in state order {e} {state_related}")
+                    return
                 
                 for _, related_row in tqdm(state_related.iterrows(), total=len(state_related), desc=f"Processing {tab_name} for {state_name}"):
                     related_obj = {}
                     for col in df.columns:
-                        if col == 'PostalCodeName':
-                            related_obj[col] = str(int(related_row[col])) if pd.notna(related_row[col]) else ""
+                        if col == 'PostalCode':
+                            # Ensure PostalCode is treated as a string to preserve leading zeros
+                            postal_code = str(related_row[col]) if pd.notna(related_row[col]) else ""
+                            related_obj[col] = postal_code.zfill(5)  # Ensures the PostalCode is at least 5 digits
+                            print(f" PostalCode : {related_obj[col]}")
+                        
                         elif col == 'Slug':
-                            # slug_value = str(related_row[col]).rstrip('.0') if pd.notna(related_row[col]) else ""
-                            slug_value = str(related_row[col]) if pd.notna(related_row[col]) else ""
-                            if not is_seo_friendly(slug_value):
-                                # Find the column with 'Name' in its title and generate a slug from it
-                                name_column = next((c for c in df.columns if 'Name' in c), None)
-                                if name_column:
-                                    slug_value = convert_to_slug(related_row[name_column])
+                            if tab_name == 'PostalCode':
+                                 postal_code = str(related_row[col]) if pd.notna(related_row[col]) else ""
+                                 slug_value = postal_code.zfill(5) 
+                            else:
+                                slug_value = str(related_row[col]) if pd.notna(related_row[col]) else ""
+                                if not is_seo_friendly(slug_value):
+                                    # Find the column with 'Name' in its title and generate a slug from it
+                                    name_column = next((c for c in df.columns if 'Name' in c), None)
+                                    if name_column:
+                                        slug_value = convert_to_slug(related_row[name_column])
                             related_obj[col] = slug_value
+                        
                         elif col == 'Order':
-                            related_obj[col] = int(related_row[col]) if pd.notna(related_row[col]) else 0
+                            try:
+                                related_obj[col] = int(related_row[col]) if pd.notna(related_row[col]) else 0
+                            except Exception as e:
+                                print(f"Order: {related_row[col]} {e}")
+                                related_obj[col] = 0
+                        
                         elif col == 'Active':
                             related_obj[col] = related_row[col] if pd.notna(related_row[col]) else 1
+                        
+                        elif col == 'Location':
+                            related_obj[col] = split_lat_lon(related_row[col]) 
+                        
                         else:
-                            related_obj[col] = related_row[col] if pd.notna(related_row[col]) else ""
+                            related_obj[col] = related_row[col]
+
                     if 'Active' not in df.columns:
                         related_obj['Active'] = 1  # Mark as 1 if Active column is missing
                     state_obj[tab_name].append(related_obj)
@@ -86,6 +108,17 @@ def save_json_to_file(json_result, output_file):
         print(f"JSON saved successfully to {output_file}")
     except Exception as e:
         print(f"Failed to save JSON file: {e}")
+
+def split_lat_lon(coordinates):
+    # Split the string by comma and strip any extra spaces
+    lat, lon = coordinates.split(',')
+    
+    # Create the dictionary with lat and lon
+    result = {
+        "lat": float(lat.strip()),
+        "lon": float(lon.strip())
+    }
+    return result
 
 # Main function
 def main():
@@ -109,6 +142,7 @@ def main():
             save_json_to_file(json_result, output_file)
     except Exception as e:
         print(f"An error occurred while processing the Excel file: {e}")
+
 
 if __name__ == "__main__":
     main()
